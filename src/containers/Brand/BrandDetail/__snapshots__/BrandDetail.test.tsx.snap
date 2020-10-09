@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  class="app-container"
+>
+  <div
+    class="app-container-head"
+  >
+    <h4
+      class="ant-typography app-title"
+    >
+      Thông tin thương hiệu
+    </h4>
+  </div>
+  <div
+    class="app-container-body"
+  >
+    <div
+      class="ant-card content-block"
+    >
+      <div
+        class="ant-card-body"
+      >
+        Thông tin thương hiệu
+      </div>
+    </div>
+  </div>
+</div>
+`;
