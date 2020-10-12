@@ -2,6 +2,7 @@
 export { default as requestServices } from './apis/request';
 export { default as userServices } from './apis/user';
 export { default as brandServices } from './apis/brand';
+export * from './apis/user';
 
 // Mock services
 export { default as userMockServices } from './mocks/user';

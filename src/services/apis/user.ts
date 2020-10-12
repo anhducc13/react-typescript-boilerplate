@@ -1,19 +1,23 @@
 import TekoID from 'teko-oauth2';
 import { browserHistory } from 'helpers';
+import { LS_USER_ACCESS_TOKEN } from 'constants/index';
 
-const isLoggedIn = () => {
-  return TekoID.user.isLoggedIn();
+export const isLoggedIn = () => {
+  return !!localStorage.getItem(LS_USER_ACCESS_TOKEN);
 };
 
-const login = () => {
-  TekoID.user.login();
+export const login = (params: any) => {
+  const { username, password } = params;
+  if (username === 'ductt' && password === 'ductt') {
+    localStorage.setItem(LS_USER_ACCESS_TOKEN, 'ductt');
+    return Promise.resolve({ success: true });
+  } else {
+    return Promise.reject(new Error('fail to login'));
+  }
 };
 
-const logout = () => {
-  // Tracking - Reset userId when logged out
-  track('resetUserId');
-
-  TekoID.user.logout(window.location.origin);
+export const logout = () => {
+  localStorage.removeItem(LS_USER_ACCESS_TOKEN);
 };
 
 const getAccessToken = () => {

@@ -1,6 +1,8 @@
 import React from 'react';
-import { Form, Input, Button, Row } from 'antd';
+import { Form, Input, Button, Row, notification } from 'antd';
 import styled from '@emotion/styled';
+import { isLoggedIn, login } from 'services';
+import { browserHistory } from 'helpers';
 
 const FormItem = Form.Item;
 
@@ -52,17 +54,34 @@ const StyledLogo = styled.div`
 `;
 
 const Login = () => {
+  if (isLoggedIn()) {
+    browserHistory.push('/');
+  }
+
+  const handleLogin = async (values: any) => {
+    try {
+      await login(values);
+      notification.success({
+        message: 'Chào mừng trở lại',
+      });
+      browserHistory.push('/');
+    } catch {
+      notification.error({
+        message: 'Tài khoản hoặc mật khẩu không chính xác',
+      });
+    }
+  };
   return (
     <FormWrapper>
       <StyledLogo>
         <img alt="Logo" src="./favicon.png" />
         <span>Ductt Site</span>
       </StyledLogo>
-      <Form onFinish={() => {}}>
-        <FormItem name="username" rules={[{ required: true }]} hasFeedback>
+      <Form onFinish={handleLogin}>
+        <FormItem name="username" rules={[{ required: true }]}>
           <Input placeholder="Username" />
         </FormItem>
-        <FormItem name="password" rules={[{ required: true }]} hasFeedback>
+        <FormItem name="password" rules={[{ required: true }]}>
           <Input type="password" placeholder="Password" />
         </FormItem>
         <Row>

@@ -3,13 +3,22 @@ import userHelpers from 'helpers/user';
 import { userServices } from 'services';
 import { IRoute } from 'interfaces';
 import { StoreContext } from 'contexts';
+import { browserHistory } from 'helpers';
+import { notification } from 'antd';
 
 const useUserInfo = () => {
   const [currentUser, setCurrentUser] = useState();
 
   const getFullUserInfo = async () => {
-    const fullUserInfo = await userServices.getFullUserInfo();
-    setCurrentUser(fullUserInfo);
+    try {
+      const fullUserInfo = await userServices.getFullUserInfo();
+      setCurrentUser(fullUserInfo);
+    } catch {
+      notification.error({
+        message: 'Vui lòng đăng nhập để tiếp tục',
+      });
+      browserHistory.push('/login');
+    }
   };
 
   useEffect(() => {

@@ -1,22 +1,43 @@
 import React, { useContext } from 'react';
-import { Layout, Menu, Dropdown, Avatar, Switch } from 'antd';
+import {
+  Layout,
+  Menu,
+  Dropdown,
+  Avatar,
+  Switch,
+  Modal,
+  notification,
+} from 'antd';
 import { DownOutlined, LogoutOutlined } from '@ant-design/icons';
 import { localizationConstants } from 'constants/index';
-import { localizationHelpers, userHelpers } from 'helpers';
+import { browserHistory, localizationHelpers } from 'helpers';
 import { t } from 'helpers/i18n';
 import { IRegionItem } from 'interfaces';
 import { StoreContext } from 'contexts';
 import { useThemeSwitch } from 'hooks/theme';
 import sunIcon from 'assets/images/sun.png';
 import moonIcon from 'assets/images/moon.png';
+import { logout } from 'services';
 
 const { Header } = Layout;
 const { REGIONS } = localizationConstants;
 const { getCurrentLanguage, changeLanguage } = localizationHelpers;
-const { logout } = userHelpers;
 
 const AppHeader: React.FC = () => {
   const { currentUser } = useContext(StoreContext);
+
+  const handleLogout = () => {
+    Modal.confirm({
+      title: 'Bạn có muốn đăng xuất?',
+      onOk: () => {
+        logout();
+        notification.success({
+          message: 'Hẹn gặp lại',
+        });
+        browserHistory.push('/login');
+      },
+    });
+  };
 
   const localizationMenu = (
     <Menu>
@@ -31,7 +52,7 @@ const AppHeader: React.FC = () => {
 
   const userMenu = (
     <Menu>
-      <Menu.Item data-testid="btn-logout" onClick={logout}>
+      <Menu.Item data-testid="btn-logout" onClick={handleLogout}>
         <LogoutOutlined />
         <span>{t('Logout')}</span>
       </Menu.Item>

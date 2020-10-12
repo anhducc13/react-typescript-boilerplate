@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
-import { Spin } from 'antd';
 import { browserHistory } from 'helpers';
 import { t } from 'helpers/i18n';
 import './App.less';
@@ -13,11 +12,7 @@ import PrivateRoute from 'components/shared/PrivateRoute';
 import AppLayout from 'containers/AppLayout';
 
 const App: React.FC = () => {
-  const [loading] = useState(false);
-
-  return loading ? (
-    <Spin className="app-spin" />
-  ) : (
+  return (
     <Router history={browserHistory}>
       <Switch>
         <Route exact path="/login" name="Login" component={Login} />
