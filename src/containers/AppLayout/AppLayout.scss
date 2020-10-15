@@ -5,141 +5,91 @@
     font-size: $font-size-20;
   }
 
+  .sider-title {
+    font-size: 1.5rem;
+    padding-bottom: 10px;
+    border-bottom: 1px #DCDCDC solid;
+  }
+
+  .option-filter {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
   .app-sider {
-    background: $color-sidebar;
-    z-index: 10;
+    padding: 20px;
 
-    .app-trigger {
-      position: absolute;
-      top: 22px;
-      right: -48px;
-      cursor: pointer;
-      transition: $transition-base;
-
-      &:hover {
-        color: $color-primary;
-      }
-    }
-
-    .app-logo {
-      position: fixed;
-      width: $sidebar-width;
-      height: 122px;
+    .btn-group {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: $transition-base;
-
-      img {
-        max-width: 180px;
-        max-height: 90px;
-      }
+      margin-top: 15px;
+      margin-bottom: 10px;
     }
 
-    .app-menu {
-      &.ant-menu-dark {
-        position: fixed;
-        width: $sidebar-width;
-        top: 122px;
-        background: $color-sidebar;
-        user-select: none;
-        max-height: calc(100vh - 122px);
-        padding-bottom: 52px;
-        overflow-y: auto;
+    .item-group-task {
+      flex: 0 1 auto;
+      max-width: 100%;
+      display: block;
+      padding: 8px 0;
+      position: static;
+      transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
+      will-change: box-shadow;
 
-        &::-webkit-scrollbar-track {
-          background: $color-sidebar;
-        }
-        &::-webkit-scrollbar-thumb {
-          background: $color-text-secondary;
-        }
+      .list-item {
+        cursor: pointer;
+        border-bottom-right-radius: 32px!important;
+        border-top-right-radius: 32px!important;
+        align-items: center;
+        display: flex;
+        flex: 1 1 100%;
+        letter-spacing: normal;
+        min-height: 48px;
+        outline: none;
+        padding: 0 16px;
+        position: relative;
+        text-decoration: none;
 
-        .app-icon {
-          margin-right: $align-base;
-          color: $color-text-secondary;
-          vertical-align: -0.25em;
-          transition: $transition-base;
-          display: inline-block;
-        }
-
-        .ant-menu-item {
-          color: $color-text-secondary;
-          background: none;
-        }
-
-        .ant-menu-item,
-        .ant-menu-submenu-title {
-          margin: 0;
-          height: 48px;
-          line-height: 48px;
+        .list-item__content {
+          align-items: center;
+          align-self: center;
+          display: flex;
+          flex-wrap: wrap;
+          flex: 1 1;
+          overflow: hidden;
+          padding: 12px 0;
         }
 
-        .ant-menu-item-active,
-        .ant-menu-submenu-active,
-        .ant-menu-submenu-open {
-          .app-icon {
-            color: $color-light;
-          }
+        .v-list-item__title {
+          line-height: 1.2;
+          align-self: center;
+          font-size: 1rem;
+          flex: 1 1 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
-        .ant-menu-item-selected,
-        .ant-menu-submenu-selected {
-          .app-icon {
-            color: $color-primary;
-          }
+        &:hover {
+          background-color: #E4EFFA;
+          color: #1976D2;
         }
-
-        .ant-menu-item-selected,
-        .ant-menu-submenu-selected .ant-menu-submenu-title {
-          font-weight: $font-weight-bold;
-        }
-
-        .ant-menu-submenu-open .ant-menu-submenu-title,
-        .ant-menu-sub {
-          background: $color-sidebar-focus;
-          box-shadow: none;
-        }
-
-        .ant-menu-sub .ant-menu-item {
-          padding-left: 60px !important;
-        }
-      }
-    }
-
-    .app-footer {
-      position: fixed;
-      padding: $align-base 0;
-      bottom: 0;
-      width: $sidebar-width;
-      line-height: $line-height-20;
-      text-align: center;
-      color: $color-text-secondary;
-      background: $color-sidebar;
-    }
-
-    &.collapsed {
-      .app-logo {
-        width: $sidebar-collapsed-width;
-        height: 92px;
-        img {
-          width: 60px;
-        }
-      }
-
-      .app-menu.ant-menu-dark {
-        width: $sidebar-collapsed-width;
-        top: 92px;
       }
     }
   }
 
   .app-header {
+    width: 100%;
     background: $color-light;
     padding: 0 $align-base;
     user-select: none;
-    border-bottom: $border-base;
+    //border-bottom: $border-base;
     height: 56px;
     line-height: 60px;
+    position: fixed;
+    top: 0;
+    z-index: 2000;
+    box-shadow: rgba(0, 0, 0, 0.03) 0px 0.5rem 1rem 0px;
+    transition: height 0.2s ease 0s;
 
     .app-logo {
       text-decoration: none;

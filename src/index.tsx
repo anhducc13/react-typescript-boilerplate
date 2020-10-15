@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import i18n from 'i18n';
 import { I18nextProvider } from 'react-i18next';
 import { ConfigProvider } from 'antd';
+import 'moment/locale/vi';
 import { localizationConstants } from 'constants/index';
 import { localizationHelpers } from 'helpers';
 import App from './App';

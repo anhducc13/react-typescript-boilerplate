@@ -10,7 +10,6 @@ import {
   Input,
   Row,
   Col,
-  Tooltip,
 } from 'antd';
 import {
   LogoutOutlined,
