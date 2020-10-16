@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, DatePicker, Radio, Row } from 'antd';
 import moment from 'moment';
 
@@ -21,18 +21,55 @@ const radioStyle = {
 const TimelineFilter = () => {
   const [filterType, setFilterType] = useState(FILTER_TYPE.RANGE);
   const [value, setValue] = useState<any>();
+  const [subFilter, setSubFilter] = useState(7);
 
-  const handleChangeSubFilter = (e: any) => {
-    console.log(e.target.value);
-    const newValue = e.target.value;
-    switch (newValue) {
+  const assignDefaultValue = (subFl: number) => {
+    switch (subFl) {
       case 1:
         setValue([moment(), moment()]);
+        break;
+      case 2:
+        setValue([moment().add(-1, 'days'), moment().add(-1, 'days')]);
+        break;
+      case 3:
+        setValue([moment().add(-1, 'weeks'), moment()]);
+        break;
+      case 4:
+        setValue([moment().add(-1, 'months'), moment()]);
+        break;
+      case 5:
+        setValue([moment().add(-3, 'months'), moment()]);
+        break;
+      case 6:
+        setValue([moment().add(-1, 'years'), moment()]);
         break;
       default:
         setValue([undefined, undefined]);
     }
   };
+
+  const handleChangeSubFilter = (e: any) => {
+    const newValue = e.target.value;
+    setSubFilter(newValue);
+  };
+
+  const handleReset = () => {
+    setFilterType(FILTER_TYPE.RANGE);
+    setSubFilter(7);
+    setValue(undefined);
+  };
+
+  useEffect(() => {
+    if (filterType === FILTER_TYPE.RANGE) {
+      setSubFilter(7);
+    }
+  }, [filterType]);
+
+  useEffect(() => {
+    if (subFilter) {
+      assignDefaultValue(subFilter);
+    }
+  }, [subFilter]);
 
   return (
     <>
@@ -40,7 +77,10 @@ const TimelineFilter = () => {
       <div className="block-filter">
         <Radio.Group
           className="option-filter"
-          onChange={e => setFilterType(e.target.value)}
+          onChange={e => {
+            setFilterType(e.target.value);
+            setValue(undefined);
+          }}
           value={filterType}
           buttonStyle="solid"
         >
@@ -54,6 +94,7 @@ const TimelineFilter = () => {
           <>
             <Radio.Group
               className="option-filter"
+              value={subFilter}
               onChange={handleChangeSubFilter}
             >
               <Row>
@@ -100,7 +141,14 @@ const TimelineFilter = () => {
                 </Col>
               </Row>
             </Radio.Group>
-            <RangePicker value={value} style={{ width: '100%' }} />
+            <RangePicker
+              value={value}
+              onFocus={() => setSubFilter(7)}
+              style={{ width: '100%' }}
+              onChange={val => {
+                setValue(val);
+              }}
+            />
           </>
         )}
         {filterType === FILTER_TYPE.WEEK && (
@@ -120,10 +168,14 @@ const TimelineFilter = () => {
           <DatePicker value={value} picker="year" style={{ width: '100%' }} />
         )}
         <div className="btn-group">
-          <Button className="mr-3" type="primary">
+          <Button
+            className="mr-3"
+            type="primary"
+            onClick={() => console.log(value)}
+          >
             Áp dụng
           </Button>
-          <Button>Đặt lại</Button>
+          <Button onClick={handleReset}>Đặt lại</Button>
         </div>
       </div>
     </>

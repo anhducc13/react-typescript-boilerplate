@@ -15,7 +15,11 @@ const AppLayout: React.FC = () => {
     <Layout className="app-layout">
       <Layout style={{ marginTop: 56 }}>
         <AppHeader filteredRoutes={filteredRoutes} />
-        <Layout>
+        <Layout
+          style={{
+            backgroundColor: '#F0F2F5',
+          }}
+        >
           <Row>
             <Col
               span={6}
@@ -29,13 +33,14 @@ const AppLayout: React.FC = () => {
               <AppSider />
             </Col>
             <Col
-              span={18}
+              span={12}
               style={{
                 marginLeft: '25%',
               }}
             >
               <AppContent filteredRoutes={filteredRoutes} />
             </Col>
+            <Col span={6}>Right</Col>
           </Row>
         </Layout>
       </Layout>
