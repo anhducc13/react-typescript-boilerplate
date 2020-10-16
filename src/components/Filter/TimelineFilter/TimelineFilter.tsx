@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Col, DatePicker, Radio, Row } from 'antd';
+import moment from 'moment';
 
 const { RangePicker } = DatePicker;
 
@@ -19,6 +20,19 @@ const radioStyle = {
 
 const TimelineFilter = () => {
   const [filterType, setFilterType] = useState(FILTER_TYPE.RANGE);
+  const [value, setValue] = useState<any>();
+
+  const handleChangeSubFilter = (e: any) => {
+    console.log(e.target.value);
+    const newValue = e.target.value;
+    switch (newValue) {
+      case 1:
+        setValue([moment(), moment()]);
+        break;
+      default:
+        setValue([undefined, undefined]);
+    }
+  };
 
   return (
     <>
@@ -38,16 +52,19 @@ const TimelineFilter = () => {
         </Radio.Group>
         {filterType === FILTER_TYPE.RANGE && (
           <>
-            <Radio.Group className="option-filter" onChange={() => {}}>
+            <Radio.Group
+              className="option-filter"
+              onChange={handleChangeSubFilter}
+            >
               <Row>
                 <Col lg={{ span: 12 }} md={{ span: 24 }}>
                   <Radio style={radioStyle} value={1}>
-                    Hôm qua
+                    Hôm nay
                   </Radio>
                 </Col>
                 <Col lg={{ span: 12 }} md={{ span: 24 }}>
                   <Radio style={radioStyle} value={2}>
-                    Hôm nay
+                    Hôm qua
                   </Radio>
                 </Col>
               </Row>
@@ -83,20 +100,24 @@ const TimelineFilter = () => {
                 </Col>
               </Row>
             </Radio.Group>
-            <RangePicker style={{ width: '100%' }} />
+            <RangePicker value={value} style={{ width: '100%' }} />
           </>
         )}
         {filterType === FILTER_TYPE.WEEK && (
-          <DatePicker picker="week" style={{ width: '100%' }} />
+          <DatePicker value={value} picker="week" style={{ width: '100%' }} />
         )}
         {filterType === FILTER_TYPE.MONTH && (
-          <DatePicker picker="month" style={{ width: '100%' }} />
+          <DatePicker value={value} picker="month" style={{ width: '100%' }} />
         )}
         {filterType === FILTER_TYPE.QUARTER && (
-          <DatePicker picker="quarter" style={{ width: '100%' }} />
+          <DatePicker
+            value={value}
+            picker="quarter"
+            style={{ width: '100%' }}
+          />
         )}
         {filterType === FILTER_TYPE.YEAR && (
-          <DatePicker picker="year" style={{ width: '100%' }} />
+          <DatePicker value={value} picker="year" style={{ width: '100%' }} />
         )}
         <div className="btn-group">
           <Button className="mr-3" type="primary">

@@ -8,13 +8,21 @@
   .sider-title {
     font-size: 1.5rem;
     padding-bottom: 10px;
-    border-bottom: 1px #DCDCDC solid;
+    border-bottom: 1px #dcdcdc solid;
   }
 
   .option-filter {
-    margin-top: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     display: block;
+
+    .ant-radio-wrapper {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .ant-radio-button-wrapper {
+      margin-bottom: 5px;
+    }
   }
 
   .app-sider {
@@ -32,13 +40,11 @@
       display: block;
       padding: 8px 0;
       position: static;
-      transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
+      transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
       will-change: box-shadow;
 
       .list-item {
         cursor: pointer;
-        border-bottom-right-radius: 32px!important;
-        border-top-right-radius: 32px!important;
         align-items: center;
         display: flex;
         flex: 1 1 100%;
@@ -70,8 +76,8 @@
         }
 
         &:hover {
-          background-color: #E4EFFA;
-          color: #1976D2;
+          background-color: #e4effa;
+          color: #1976d2;
         }
       }
     }
@@ -87,7 +93,7 @@
     line-height: 60px;
     position: fixed;
     top: 0;
-    z-index: 2000;
+    z-index: 1000;
     box-shadow: rgba(0, 0, 0, 0.03) 0px 0.5rem 1rem 0px;
     transition: height 0.2s ease 0s;
 

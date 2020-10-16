@@ -1,10 +1,10 @@
 import React from 'react';
-import { Form, Input, Button, Row, notification } from 'antd';
+import { notification } from 'antd';
 import styled from '@emotion/styled';
-import { isLoggedIn, login } from 'services';
+import { isLoggedIn } from 'services';
 import { browserHistory } from 'helpers';
-
-const FormItem = Form.Item;
+import { GoogleLogin } from 'react-google-login';
+import { LS_USER_ACCESS_TOKEN } from 'constants/index';
 
 const FormWrapper = styled.div`
   position: absolute;
@@ -12,7 +12,7 @@ const FormWrapper = styled.div`
   left: 50%;
   margin: -160px 0 0 -160px;
   width: 320px;
-  height: 320px;
+  height: 160px;
   padding: 36px;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
 
@@ -58,38 +58,30 @@ const Login = () => {
     browserHistory.push('/');
   }
 
-  const handleLogin = async (values: any) => {
-    try {
-      await login(values);
-      notification.success({
-        message: 'Chào mừng trở lại',
-      });
-      browserHistory.push('/');
-    } catch {
-      notification.error({
-        message: 'Tài khoản hoặc mật khẩu không chính xác',
-      });
-    }
+  const handleLoginGoogle = (returnObj: any) => {
+    localStorage.setItem(LS_USER_ACCESS_TOKEN, returnObj.tokenId);
+    notification.success({
+      message: 'Xin chào',
+    });
+    browserHistory.push('/');
   };
   return (
     <FormWrapper>
       <StyledLogo>
-        <img alt="Logo" src="./favicon.png" />
-        <span>Ductt Site</span>
+        <img alt="Logo" src="https://qdiary.github.io/img/logo.462c0eef.png" />
+        <span>MEMO</span>
       </StyledLogo>
-      <Form onFinish={handleLogin}>
-        <FormItem name="username" rules={[{ required: true }]}>
-          <Input placeholder="Username" />
-        </FormItem>
-        <FormItem name="password" rules={[{ required: true }]}>
-          <Input type="password" placeholder="Password" />
-        </FormItem>
-        <Row>
-          <Button type="primary" htmlType="submit">
-            Đăng nhập
-          </Button>
-        </Row>
-      </Form>
+      <GoogleLogin
+        clientId="335058615265-gcce2lv24jgadcjv20oblhlav3s0caik.apps.googleusercontent.com"
+        onSuccess={handleLoginGoogle}
+        onFailure={() => {
+          notification.error({
+            message: 'Có lỗi xảy ra, vui lòng thử lại sau!',
+          });
+        }}
+        responseType="id_token"
+        cookiePolicy={'single_host_origin'}
+      />
     </FormWrapper>
   );
 };

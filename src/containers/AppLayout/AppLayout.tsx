@@ -14,7 +14,7 @@ const AppLayout: React.FC = () => {
   return (
     <Layout className="app-layout">
       <Layout style={{ marginTop: 56 }}>
-        <AppHeader />
+        <AppHeader filteredRoutes={filteredRoutes} />
         <Layout>
           <Row>
             <Col

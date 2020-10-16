@@ -4,7 +4,6 @@ import {
   Menu,
   Dropdown,
   Avatar,
-  // Switch,
   Modal,
   notification,
   Input,
@@ -20,25 +19,38 @@ import {
 import { localizationConstants } from 'constants/index';
 import { browserHistory, localizationHelpers } from 'helpers';
 import { t } from 'helpers/i18n';
-import { IRegionItem } from 'interfaces';
+import { IRegionItem, IRoute } from 'interfaces';
 import { StoreContext } from 'contexts';
 // import { useThemeSwitch } from 'hooks/theme';
 // import sunIcon from 'assets/images/sun.png';
 // import moonIcon from 'assets/images/moon.png';
 import { logout } from 'services';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useGoogleLogout } from 'react-google-login';
 
 const { Header } = Layout;
 const { REGIONS } = localizationConstants;
 const { getCurrentLanguage, changeLanguage } = localizationHelpers;
 
-const AppHeader: React.FC = () => {
+interface AppHeaderProps {
+  filteredRoutes: IRoute[];
+}
+
+const AppHeader: React.FC<AppHeaderProps> = ({
+  filteredRoutes,
+}: AppHeaderProps) => {
   const { currentUser } = useContext(StoreContext);
+  const location = useLocation();
+  const { signOut } = useGoogleLogout({
+    clientId:
+      '335058615265-gcce2lv24jgadcjv20oblhlav3s0caik.apps.googleusercontent.com',
+  });
 
   const handleLogout = () => {
     Modal.confirm({
       title: 'Bạn có muốn đăng xuất?',
       onOk: () => {
+        signOut();
         logout();
         notification.success({
           message: 'Hẹn gặp lại',
@@ -70,7 +82,11 @@ const AppHeader: React.FC = () => {
 
   const currentRegion = REGIONS[getCurrentLanguage()];
 
-  // const { isDarkMode, toggleDarkMode } = useThemeSwitch();
+  const handleChange = (item: any) => {
+    if (item.key !== location.pathname) {
+      browserHistory.push(item.key);
+    }
+  };
 
   return (
     <Header className="app-header">
@@ -99,37 +115,37 @@ const AppHeader: React.FC = () => {
         <Col span={12}>
           <Menu
             mode="horizontal"
-            defaultSelectedKeys={['1']}
+            selectedKeys={[location.pathname]}
+            onClick={handleChange}
             className="custom-ant-menu"
           >
-            <Menu.Item key="1" icon={<BookOutlined style={{ fontSize: 24 }} />}>
-              Nhật ký
-            </Menu.Item>
-            <Menu.Item
-              key="2"
-              icon={<ProfileOutlined style={{ fontSize: 24 }} />}
-            >
-              Nhiệm vụ
-            </Menu.Item>
+            {filteredRoutes.map(item => {
+              switch (item.path) {
+                case '/timeline':
+                  return (
+                    <Menu.Item
+                      key={item.path}
+                      icon={<BookOutlined style={{ fontSize: 24 }} />}
+                    >
+                      {item.name}
+                    </Menu.Item>
+                  );
+                case '/task':
+                  return (
+                    <Menu.Item
+                      key={item.path}
+                      icon={<ProfileOutlined style={{ fontSize: 24 }} />}
+                    >
+                      {item.name}
+                    </Menu.Item>
+                  );
+                default:
+                  return null;
+              }
+            })}
           </Menu>
         </Col>
         <Col span={6} className="d-flex justify-content-between">
-          {/* <span className="app-user">
-            <Switch
-              data-testid="theme-switch"
-              className="theme-switch"
-              title={t('SwitchTheme')}
-              checked={isDarkMode}
-              checkedChildren={
-                <img width="16" height="16" src={moonIcon} alt="dark" />
-              }
-              unCheckedChildren={
-                <img width="16" height="16" src={sunIcon} alt="light" />
-              }
-              onClick={toggleDarkMode}
-            />
-          </span> */}
-
           <Dropdown overlay={userMenu} trigger={['click']}>
             <span className="app-user">
               <Avatar src={currentUser.picture} />

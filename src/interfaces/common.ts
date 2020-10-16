@@ -12,7 +12,7 @@ export interface IRoute {
   name: string;
   component: React.ReactType;
   permissions?: IPermission[];
-  icon?: React.ComponentType<{ className?: string }>;
+  icon?: React.FunctionComponent<{ className?: string }>;
   children?: string[];
 }
 
