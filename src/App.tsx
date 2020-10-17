@@ -4,8 +4,9 @@ import { browserHistory } from 'helpers';
 import { t } from 'helpers/i18n';
 import './App.less';
 import './App.scss';
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import 'react-image-crop/lib/ReactCrop.scss';
 import Page403 from 'containers/shared/Page403';
 import Page404 from 'containers/shared/Page404';
 import Page500 from 'containers/shared/Page500';

@@ -1,6 +1,6 @@
 .app-layout {
   min-height: 100vh;
-  background-color: #F0F2F5;
+  background-color: #f0f2f5;
 
   .app-icon {
     font-size: $font-size-20;
@@ -23,6 +23,12 @@
 
     .ant-radio-button-wrapper {
       margin-bottom: 5px;
+      border-radius: 999px;
+      margin-right: 4px;
+
+      &::before {
+        display: none;
+      }
     }
   }
 
@@ -95,7 +101,7 @@
     position: fixed;
     top: 0;
     z-index: 1000;
-    box-shadow: rgba(0, 0, 0, 0.03) 0px 0.5rem 1rem 0px;
+    box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
     transition: height 0.2s ease 0s;
 
     .app-logo {
@@ -189,7 +195,7 @@
       .app-container-body {
         flex: auto;
         padding: $align-base;
-        background: #F0F2F5;
+        background: #f0f2f5;
       }
     }
   }

@@ -144,7 +144,7 @@ const TimelineFilter = () => {
             <RangePicker
               value={value}
               onFocus={() => setSubFilter(7)}
-              style={{ width: '100%' }}
+              style={{ width: '100%', borderRadius: 8 }}
               onChange={val => {
                 setValue(val);
               }}
@@ -152,30 +152,45 @@ const TimelineFilter = () => {
           </>
         )}
         {filterType === FILTER_TYPE.WEEK && (
-          <DatePicker value={value} picker="week" style={{ width: '100%' }} />
+          <DatePicker
+            value={value}
+            picker="week"
+            style={{ width: '100%', borderRadius: 8 }}
+          />
         )}
         {filterType === FILTER_TYPE.MONTH && (
-          <DatePicker value={value} picker="month" style={{ width: '100%' }} />
+          <DatePicker
+            value={value}
+            picker="month"
+            style={{ width: '100%', borderRadius: 8 }}
+          />
         )}
         {filterType === FILTER_TYPE.QUARTER && (
           <DatePicker
             value={value}
             picker="quarter"
-            style={{ width: '100%' }}
+            style={{ width: '100%', borderRadius: 8 }}
           />
         )}
         {filterType === FILTER_TYPE.YEAR && (
-          <DatePicker value={value} picker="year" style={{ width: '100%' }} />
+          <DatePicker
+            value={value}
+            picker="year"
+            style={{ width: '100%', borderRadius: 8 }}
+          />
         )}
         <div className="btn-group">
           <Button
-            className="mr-3"
+            className="mr-2"
             type="primary"
+            style={{ borderRadius: 999 }}
             onClick={() => console.log(value)}
           >
             Áp dụng
           </Button>
-          <Button onClick={handleReset}>Đặt lại</Button>
+          <Button style={{ borderRadius: 999 }} onClick={handleReset}>
+            Đặt lại
+          </Button>
         </div>
       </div>
     </>

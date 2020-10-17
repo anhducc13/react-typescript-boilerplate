@@ -40,7 +40,7 @@ const AppLayout: React.FC = () => {
             >
               <AppContent filteredRoutes={filteredRoutes} />
             </Col>
-            <Col span={6}>Right</Col>
+            <Col span={6} />
           </Row>
         </Layout>
       </Layout>
